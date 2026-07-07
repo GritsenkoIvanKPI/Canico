@@ -6,7 +6,7 @@
   <title>CaniCo — Salon de Toilettage | Châtillon</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -698,6 +698,138 @@
       margin-top: 8px;
     }
 
+    /* ── Pricing ── */
+    .pricing-tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .pricing-tab {
+      padding: 12px 24px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--brown);
+      background: transparent;
+      border: 1px solid rgba(67,50,34,.24);
+      border-radius: 30px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .25s ease, color .25s ease, border-color .25s ease, transform .2s cubic-bezier(.25,.46,.45,.94);
+    }
+    .pricing-tab:hover { border-color: var(--brown); transform: translateY(-1px); }
+    .pricing-tab:active { transform: translateY(0); }
+    .pricing-tab:focus-visible { outline: 2px solid var(--brown); outline-offset: 3px; }
+    .pricing-tab.active { background: var(--brown); border-color: var(--brown); color: var(--cream); }
+
+    .pricing-panel-wrap {
+      background: var(--cream-soft);
+      border: 1px solid var(--cream-dark);
+      border-radius: 4px;
+      padding: 8px 48px;
+      box-shadow: 0 24px 64px rgba(67,50,34,.09), 0 4px 18px rgba(67,50,34,.05);
+    }
+    .pricing-panel { display: none; }
+    .pricing-panel.active { display: block; animation: pricing-fade .5s cubic-bezier(.25,.46,.45,.94); }
+    @keyframes pricing-fade {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .pricing-panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 20px;
+      padding: 28px 0 8px;
+    }
+    .pricing-panel-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(22px, 2.2vw, 28px);
+      font-weight: 400;
+      letter-spacing: -.01em;
+      color: var(--dark);
+    }
+    .pricing-panel-count {
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--sage);
+      flex-shrink: 0;
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 48px;
+    }
+    .pricing-grid.single { grid-template-columns: 1fr; max-width: 620px; }
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 20px 0;
+      border-top: 1px solid var(--cream-dark);
+    }
+    .price-name {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15.5px;
+      font-weight: 500;
+      line-height: 1.4;
+      letter-spacing: -.01em;
+      color: var(--dark);
+    }
+    .price-meta {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--sage);
+      letter-spacing: .01em;
+      margin-top: 7px;
+      font-variant-numeric: tabular-nums;
+    }
+    .price-meta svg { flex-shrink: 0; opacity: .7; }
+    .price-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 21px;
+      font-weight: 600;
+      color: var(--brown);
+      white-space: nowrap;
+      flex-shrink: 0;
+      padding-top: 1px;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    .price-value.is-free {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--brown);
+      background: rgba(67,50,34,.08);
+      padding: 5px 11px;
+      border-radius: 20px;
+    }
+    .pricing-footnote {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 32px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+    .pricing-footnote p {
+      font-size: 13px;
+      color: var(--sage);
+      line-height: 1.7;
+      max-width: 520px;
+    }
+
     /* ── About dark section ── */
     .about-section { background: var(--dark); }
 
@@ -1079,6 +1211,12 @@
       /* Section headers: stack on tablet */
       .section-header { flex-direction: column; align-items: flex-start; gap: 20px; }
 
+      /* Pricing: single column, tighter panel padding */
+      .pricing-grid { grid-template-columns: 1fr; }
+      .pricing-panel-wrap { padding: 4px 28px; }
+      .pricing-tabs { gap: 8px; }
+      .pricing-tab { padding: 10px 18px; font-size: 11px; }
+
       /* Testimonials: single-column slide */
       .tests-header { flex-direction: column; gap: 24px; align-items: flex-start; }
       .tests-rating { text-align: left; }
@@ -1099,6 +1237,7 @@
       /* Section padding: trim from 120–128px to 88–96px on tablet */
       #why      { padding: 88px 0 !important; }
       #services { padding: 88px 0 !important; }
+      #pricing  { padding: 88px 0 !important; }
       #about    { padding: 88px 0 !important; }
       #gallery  { padding: 88px 0 !important; }
       #reviews  { padding: 88px 0 !important; }
@@ -1123,6 +1262,7 @@
       /* Section vertical padding overrides */
       #why      { padding: 72px 0 !important; }
       #services { padding: 72px 0 !important; }
+      #pricing  { padding: 72px 0 !important; }
       #about    { padding: 72px 0 !important; }
       #gallery  { padding: 72px 0 !important; }
       #reviews  { padding: 72px 0 !important; }
@@ -1183,6 +1323,7 @@
 
     <div class="nav-links">
       <a href="#services" class="nav-link">Services</a>
+      <a href="#pricing" class="nav-link">Tarifs</a>
       <a href="#about" class="nav-link">À propos</a>
       <a href="#gallery" class="nav-link">Réalisations</a>
       <a href="#reviews" class="nav-link">Avis</a>
@@ -1201,6 +1342,7 @@
 <!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
   <a href="#services" class="mobile-menu-link">Services</a>
+  <a href="#pricing"  class="mobile-menu-link">Tarifs</a>
   <a href="#about"    class="mobile-menu-link">À propos</a>
   <a href="#gallery"  class="mobile-menu-link">Réalisations</a>
   <a href="#reviews"  class="mobile-menu-link">Avis</a>
@@ -1473,6 +1615,259 @@
 
     </div>
 
+  </div>
+</section>
+
+<!-- ═══════════════ TARIFS ═══════════════ -->
+<section style="padding:120px 0;background:var(--cream);" id="pricing">
+  <div class="section-inner">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow reveal">Grille tarifaire</p>
+        <h2 class="display-lg reveal reveal-d1" style="margin-top:12px;">
+          Nos Tarifs
+        </h2>
+      </div>
+      <p class="reveal" style="font-size:15px;color:var(--sage);line-height:1.8;max-width:400px;padding-bottom:6px;">
+        Toutes prestations chiens et NAC, à la carte ou en supplément. Le tarif exact dépend de la taille, de la race et de l'état du pelage de votre compagnon.
+      </p>
+    </div>
+
+    <!-- Category tabs -->
+    <div class="pricing-tabs reveal" role="tablist" aria-label="Catégories de tarifs">
+      <button class="pricing-tab active" data-target="cat-carte" role="tab" aria-selected="true">À la carte</button>
+      <button class="pricing-tab" data-target="cat-bain" role="tab" aria-selected="false">Bain</button>
+      <button class="pricing-tab" data-target="cat-petit" role="tab" aria-selected="false">Petits chiens</button>
+      <button class="pricing-tab" data-target="cat-moyen" role="tab" aria-selected="false">Chiens moyens</button>
+      <button class="pricing-tab" data-target="cat-grand" role="tab" aria-selected="false">Grands chiens</button>
+      <button class="pricing-tab" data-target="cat-epilation" role="tab" aria-selected="false">Épilation</button>
+      <button class="pricing-tab" data-target="cat-nac" role="tab" aria-selected="false">NAC</button>
+      <button class="pricing-tab" data-target="cat-tcap" role="tab" aria-selected="false">TCAP</button>
+      <button class="pricing-tab" data-target="cat-soins" role="tab" aria-selected="false">Soins</button>
+    </div>
+
+    <!-- Panels -->
+    <div class="pricing-panel-wrap reveal reveal-d1">
+
+      <!-- 1. À la carte -->
+      <div class="pricing-panel active" id="cat-carte" role="tabpanel">
+        <div class="pricing-panel-head">
+          <h3 class="pricing-panel-title">Prestations à la carte</h3>
+          <span class="pricing-panel-count">9 prestations</span>
+        </div>
+        <div class="pricing-grid">
+          <div>
+            <div class="price-row">
+              <div><div class="price-name">Coupe de griffes</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>15 min</div></div>
+              <span class="price-value is-free">Offerte</span>
+            </div>
+            <div class="price-row">
+              <div><div class="price-name">Cours de brossage</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>1h</div></div>
+              <span class="price-value">35 €</span>
+            </div>
+            <div class="price-row">
+              <div><div class="price-name">Brossage régulier (30 min)</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>30 min</div></div>
+              <span class="price-value">19 €</span>
+            </div>
+            <div class="price-row">
+              <div><div class="price-name">Démêlage / réduction de mue</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>30 min</div></div>
+              <span class="price-value">25 €</span>
+            </div>
+            <div class="price-row">
+              <div><div class="price-name">Coupe tête seule + hygiène</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>30 min</div></div>
+              <span class="price-value">23 €</span>
+            </div>
+          </div>
+          <div>
+            <div class="price-row">
+              <div><div class="price-name">Retouche pattes + hygiène</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>30 min</div></div>
+              <span class="price-value">23 €</span>
+            </div>
+            <div class="price-row">
+              <div><div class="price-name">Supplément parasites (shampooing traitant)</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>15 min</div></div>
+              <span class="price-value">15 €</span>
+            </div>
+            <div class="price-row">
+              <div><div class="price-name">Dépassement d'horaires (hors fermeture salon)</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>30 min</div></div>
+              <span class="price-value">25 €</span>
+            </div>
+            <div class="price-row">
+              <div><div class="price-name">Pénalité rendez-vous non honoré</div></div>
+              <span class="price-value">15 € – 30 €</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Bain -->
+      <div class="pricing-panel" id="cat-bain" role="tabpanel">
+        <div class="pricing-panel-head">
+          <h3 class="pricing-panel-title">Bain, brushing &amp; retouche — petit et moyen chien</h3>
+          <span class="pricing-panel-count">11 prestations</span>
+        </div>
+        <div class="pricing-grid">
+          <div>
+            <div class="price-row"><div><div class="price-name">Bichon / Caniche / Coton / Lhassa / Shih Tzu</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>1h30</div></div><span class="price-value">60 €</span></div>
+            <div class="price-row"><div><div class="price-name">Bouledogue / Carlin</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>1h</div></div><span class="price-value">57 €</span></div>
+            <div class="price-row"><div><div class="price-name">Cairn Terrier / Westie</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>1h15</div></div><span class="price-value">65 €</span></div>
+            <div class="price-row"><div><div class="price-name">Chien moyen</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h</div></div><span class="price-value">68 €</span></div>
+            <div class="price-row"><div><div class="price-name">Chihuahua / petit chien russe</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>45 min</div></div><span class="price-value">48 €</span></div>
+            <div class="price-row"><div><div class="price-name">Corgi / Shiba Inu</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h</div></div><span class="price-value">60 € – 75 €</span></div>
+          </div>
+          <div>
+            <div class="price-row"><div><div class="price-name">Jack Russell / Parson / Teckel / Boston</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>1h15</div></div><span class="price-value">50 €</span></div>
+            <div class="price-row"><div><div class="price-name">Norfolk / Norwich</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>1h15</div></div><span class="price-value">55 €</span></div>
+            <div class="price-row"><div><div class="price-name">Shetland / Berger Américain</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h</div></div><span class="price-value">67 € – 92 €</span></div>
+            <div class="price-row"><div><div class="price-name">Spitz / Pékinois / Épagneul Tibétain</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h</div></div><span class="price-value">60 € – 85 €</span></div>
+            <div class="price-row"><div><div class="price-name">Yorkshire / Biewer</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>1h</div></div><span class="price-value">52 €</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Petits chiens -->
+      <div class="pricing-panel" id="cat-petit" role="tabpanel">
+        <div class="pricing-panel-head">
+          <h3 class="pricing-panel-title">Toilettage — petits chiens</h3>
+          <span class="pricing-panel-count">11 prestations</span>
+        </div>
+        <div class="pricing-grid">
+          <div>
+            <div class="price-row"><div><div class="price-name">Initiation toilettage, - 6 mois</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h</div></div><span class="price-value">60 €</span></div>
+            <div class="price-row"><div><div class="price-name">Coupe ciseaux, petit chien</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h</div></div><span class="price-value">68 € – 93 €</span></div>
+            <div class="price-row"><div><div class="price-name">Coupe ciseaux, 4 à 6 semaines</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h</div></div><span class="price-value">68 €</span></div>
+            <div class="price-row"><div><div class="price-name">Bichon / Caniche / Coton / Lhassa / Shih Tzu (ciseaux)</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h</div></div><span class="price-value">72 € – 97 €</span></div>
+            <div class="price-row"><div><div class="price-name">Coupe ciseaux type Yorkshire</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>1h45</div></div><span class="price-value">60 € – 79 €</span></div>
+            <div class="price-row"><div><div class="price-name">Cairn Terrier / Westie (coupe)</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h</div></div><span class="price-value">75 € – 95 €</span></div>
+          </div>
+          <div>
+            <div class="price-row"><div><div class="price-name">Westie, coupe régulière (6-8 sem)</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>1h45</div></div><span class="price-value">65 €</span></div>
+            <div class="price-row"><div><div class="price-name">Tonte, très petit chien</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>1h45</div></div><span class="price-value">60 € – 79 €</span></div>
+            <div class="price-row"><div><div class="price-name">Tonte, Bichon / Caniche / Coton / Lhassa / Shih Tzu</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h</div></div><span class="price-value">68 € – 87 €</span></div>
+            <div class="price-row"><div><div class="price-name">Tonte, Yorkshire / Biewer</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>1h45</div></div><span class="price-value">59 € – 78 €</span></div>
+            <div class="price-row"><div><div class="price-name">Vieux chien, sans bain</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>1h30</div></div><span class="price-value">35 €</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Chiens moyens -->
+      <div class="pricing-panel" id="cat-moyen" role="tabpanel">
+        <div class="pricing-panel-head">
+          <h3 class="pricing-panel-title">Toilettage — chiens moyens</h3>
+          <span class="pricing-panel-count">6 prestations</span>
+        </div>
+        <div class="pricing-grid">
+          <div>
+            <div class="price-row"><div><div class="price-name">Initiation chiot, - 6 mois</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h</div></div><span class="price-value">65 €</span></div>
+            <div class="price-row"><div><div class="price-name">Tonte chien moyen (selon poil)</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h</div></div><span class="price-value">70 € – 95 €</span></div>
+            <div class="price-row"><div><div class="price-name">Cocker / Scotch (dos tondu + pattes ciseaux)</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h30</div></div><span class="price-value">75 € – 100 €</span></div>
+          </div>
+          <div>
+            <div class="price-row"><div><div class="price-name">Coupe ciseaux (selon poil)</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>3h</div></div><span class="price-value">83 € – 102 €</span></div>
+            <div class="price-row"><div><div class="price-name">Épilation, poils durs</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h</div></div><span class="price-value">80 € – 110 €</span></div>
+            <div class="price-row"><div><div class="price-name">Vieux chien, sans bain</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>1h30</div></div><span class="price-value">40 €</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Grands chiens -->
+      <div class="pricing-panel" id="cat-grand" role="tabpanel">
+        <div class="pricing-panel-head">
+          <h3 class="pricing-panel-title">Toilettage — grands chiens</h3>
+          <span class="pricing-panel-count">11 prestations</span>
+        </div>
+        <div class="pricing-grid">
+          <div>
+            <div class="price-row"><div><div class="price-name">Initiation chiot, - 6 mois</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h</div></div><span class="price-value">68 €</span></div>
+            <div class="price-row"><div><div class="price-name">Labrador / Boxer / Beauceron / Braque</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h</div></div><span class="price-value">67 €</span></div>
+            <div class="price-row"><div><div class="price-name">Épagneul / Springer Spaniel</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h</div></div><span class="price-value">72 € – 91 €</span></div>
+            <div class="price-row"><div><div class="price-name">Berger Australien / Allemand / Belge / Blanc Suisse / Golden</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h</div></div><span class="price-value">72 € – 107 €</span></div>
+            <div class="price-row"><div><div class="price-name">Berger Picard / Catalan</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h</div></div><span class="price-value">82 € – 117 €</span></div>
+            <div class="price-row"><div><div class="price-name">Bouvier Bernois / St Bernard / Terre Neuve</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h30</div></div><span class="price-value">87 € – 132 €</span></div>
+          </div>
+          <div>
+            <div class="price-row"><div><div class="price-name">Samoyède / Husky / Spitz Loup</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h</div></div><span class="price-value">87 € – 132 €</span></div>
+            <div class="price-row"><div><div class="price-name">Bobtail / Briard / Bearded Collie</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h30</div></div><span class="price-value">93 € – 155 €</span></div>
+            <div class="price-row"><div><div class="price-name">Chow-Chow / Akita Inu / Malamute</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h</div></div><span class="price-value">92 € – 145 €</span></div>
+            <div class="price-row"><div><div class="price-name">Tonte grand chien (races adaptées)</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h</div></div><span class="price-value">75 € – 85 €</span></div>
+            <div class="price-row"><div><div class="price-name">Vieux chien, sans bain</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h</div></div><span class="price-value">45 €</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Épilation -->
+      <div class="pricing-panel" id="cat-epilation" role="tabpanel">
+        <div class="pricing-panel-head">
+          <h3 class="pricing-panel-title">Épilation</h3>
+          <span class="pricing-panel-count">8 prestations</span>
+        </div>
+        <div class="pricing-grid">
+          <div>
+            <div class="price-row"><div><div class="price-name">Poils durs, petits chiens</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h30</div></div><span class="price-value">62 € – 81 €</span></div>
+            <div class="price-row"><div><div class="price-name">Cockers, régulière (6-8 sem)</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h</div></div><span class="price-value">65 € – 90 €</span></div>
+            <div class="price-row"><div><div class="price-name">Cavalier King Charles / King Charles Spaniel</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h</div></div><span class="price-value">72 € – 90 €</span></div>
+            <div class="price-row"><div><div class="price-name">Grands chiens, Springer / Setter</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h30</div></div><span class="price-value">78 € – 103 €</span></div>
+          </div>
+          <div>
+            <div class="price-row"><div><div class="price-name">Cockers</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>3h</div></div><span class="price-value">80 € – 130 €</span></div>
+            <div class="price-row"><div><div class="price-name">Grands chiens</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>3h</div></div><span class="price-value">90 € – 150 €</span></div>
+            <div class="price-row"><div><div class="price-name">Schnauzer Nain / Scottish</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h30</div></div><span class="price-value">75 € – 100 €</span></div>
+            <div class="price-row"><div><div class="price-name">Terrier Westie / Cairn / Teckel</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2h30</div></div><span class="price-value">75 € – 100 €</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. NAC -->
+      <div class="pricing-panel" id="cat-nac" role="tabpanel">
+        <div class="pricing-panel-head">
+          <h3 class="pricing-panel-title">NAC — Nouveaux animaux de compagnie</h3>
+          <span class="pricing-panel-count">1 prestation</span>
+        </div>
+        <div class="pricing-grid single">
+          <div>
+            <div class="price-row"><div><div class="price-name">Lapin</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>30 min</div></div><span class="price-value">19 €</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. TCAP -->
+      <div class="pricing-panel" id="cat-tcap" role="tabpanel">
+        <div class="pricing-panel-head">
+          <h3 class="pricing-panel-title">Toilettage comportemental — méthode TCAP</h3>
+          <span class="pricing-panel-count">1 prestation</span>
+        </div>
+        <div class="pricing-grid single">
+          <div>
+            <div class="price-row"><div><div class="price-name">Séance TCAP chien</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Max. 1h</div></div><span class="price-value">30 € / 30 min</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. Soins -->
+      <div class="pricing-panel" id="cat-soins" role="tabpanel">
+        <div class="pricing-panel-head">
+          <h3 class="pricing-panel-title">Soins en complément du toilettage</h3>
+          <span class="pricing-panel-count">6 prestations</span>
+        </div>
+        <div class="pricing-grid">
+          <div>
+            <div class="price-row"><div><div class="price-name">Soin démêlant</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>1h</div></div><span class="price-value">15 €</span></div>
+            <div class="price-row"><div><div class="price-name">Soin hydratant, peaux sèches</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>30 min</div></div><span class="price-value">12 €</span></div>
+            <div class="price-row"><div><div class="price-name">Soin peaux fragiles et sensibles</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>30 min</div></div><span class="price-value">12 €</span></div>
+          </div>
+          <div>
+            <div class="price-row"><div><div class="price-name">Soin peaux grasses</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>30 min</div></div><span class="price-value">12 €</span></div>
+            <div class="price-row"><div><div class="price-name">Soin peaux matures</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>30 min</div></div><span class="price-value">8 €</span></div>
+            <div class="price-row"><div><div class="price-name">Soin réparateur, peaux atopiques</div><div class="price-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>30 min</div></div><span class="price-value">15 €</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="pricing-footnote reveal reveal-d2">
+      <p>Tarifs indicatifs — le prix exact dépend de la taille, de la race et de l'état du pelage. Un devis précis vous sera proposé lors de la prise de rendez-vous.</p>
+      <a href="#contact" class="btn-dark">Demander un devis</a>
+    </div>
   </div>
 </section>
 
@@ -1846,6 +2241,7 @@
         <div style="display:flex;flex-direction:column;gap:10px;">
           <a href="#home" class="footer-link">Accueil</a>
           <a href="#services" class="footer-link">Services</a>
+          <a href="#pricing" class="footer-link">Tarifs</a>
           <a href="#about" class="footer-link">À propos</a>
           <a href="#gallery" class="footer-link">Réalisations</a>
           <a href="#reviews" class="footer-link">Avis clients</a>
@@ -1961,6 +2357,23 @@
     });
     document.querySelectorAll('.t-prev').forEach(btn => {
       btn.addEventListener('click', () => goTo(current - 1));
+    });
+  })();
+
+  // Pricing category tabs
+  (function() {
+    const tabs = Array.from(document.querySelectorAll('.pricing-tab'));
+    if (!tabs.length) return;
+    const panels = Array.from(document.querySelectorAll('.pricing-panel'));
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+        panels.forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        document.getElementById(tab.dataset.target).classList.add('active');
+      });
     });
   })();
 </script>
