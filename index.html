@@ -345,6 +345,44 @@
       color: rgba(255,255,255,.82);
       text-shadow: 0 1px 10px rgba(0,0,0,.45);
     }
+
+    /* Hero opening-date badge */
+    .hero-badge {
+      position: absolute;
+      top: 112px;
+      left: 56px;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px 10px 14px;
+      background: rgba(15,13,11,.4);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(229,216,200,.28);
+      border-radius: 30px;
+    }
+    .hero-badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #C8965A;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 3px rgba(200,150,90,.25);
+      animation: hero-badge-pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes hero-badge-pulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(200,150,90,.25); }
+      50% { box-shadow: 0 0 0 6px rgba(200,150,90,.1); }
+    }
+    .hero-badge-text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.92);
+      white-space: nowrap;
+    }
     .hero-subtitle {
       font-family: 'DM Sans', sans-serif;
       font-size: 17px;
@@ -1189,6 +1227,7 @@
       .service-row { flex-wrap: wrap; }
       .hero-title { font-size: clamp(54px, 14vw, 90px); bottom: 64px; left: 24px; }
       .hero-info { right: 24px; bottom: 140px; max-width: 240px; }
+      .hero-badge { left: 24px; top: 100px; }
 
       /* Why: drop center photo, keep stats + text */
       .why-grid { grid-template-columns: 180px 1fr; gap: 0 56px; }
@@ -1258,6 +1297,8 @@
         max-width: 280px;
       }
       .hero-title { font-size: clamp(48px, 14vw, 76px); left: 20px; bottom: 60px; }
+      .hero-badge { left: 20px; top: 96px; padding: 9px 15px 9px 12px; }
+      .hero-badge-text { font-size: 10px; }
 
       /* Section vertical padding overrides */
       #why      { padding: 72px 0 !important; }
@@ -1355,6 +1396,12 @@
   <div class="hero-overlay"></div>
 
   <div class="hero-content">
+    <!-- Opening-date badge -->
+    <div class="hero-badge reveal">
+      <span class="hero-badge-dot"></span>
+      <span class="hero-badge-text">Ouverture en septembre 2026</span>
+    </div>
+
     <!-- Right panel: vertically centered -->
     <div class="hero-info reveal">
       <p class="hero-eyebrow">Salon de Toilettage — Châtillon 92320</p>
