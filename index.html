@@ -4,6 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CaniCo — Salon de Toilettage | Châtillon</title>
+  <meta name="description" content="Salon de toilettage canin à Châtillon (92320). Bain, coupe, soin des griffes et des oreilles — un accompagnement sur mesure et sans stress pour chaque chien. Prenez rendez-vous.">
+
+  <!-- Favicon & Web Clip -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#0F0D0B">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CaniCo">
+  <meta property="og:title" content="CaniCo — Salon de Toilettage | Châtillon">
+  <meta property="og:description" content="Salon de toilettage canin à Châtillon (92320). Bain, coupe, soin des griffes et des oreilles — un accompagnement sur mesure et sans stress pour chaque chien.">
+  <meta property="og:image" content="https://www.canicotoilettage.com/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:url" content="https://www.canicotoilettage.com/">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CaniCo — Salon de Toilettage | Châtillon">
+  <meta name="twitter:description" content="Salon de toilettage canin à Châtillon (92320). Bain, coupe, soin des griffes et des oreilles — un accompagnement sur mesure et sans stress pour chaque chien.">
+  <meta name="twitter:image" content="https://www.canicotoilettage.com/og-image.jpg">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
@@ -41,6 +67,7 @@
       --sage: #7A6A58;
       --brown: #433222;
       --brown-light: #6B5240;
+      --error: #A6483A;
     }
 
     *, *::before, *::after { box-sizing: border-box; }
@@ -1088,6 +1115,49 @@
       background-position: right 16px center;
       cursor: pointer;
     }
+
+    /* Contact form validation */
+    .field-group { position: relative; }
+    .form-input.invalid { border-color: var(--error); }
+    .form-input.invalid:focus { border-color: var(--error); }
+    .field-error {
+      display: none;
+      margin-top: 8px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--error);
+    }
+    .form-input.invalid + .field-error {
+      display: block;
+      animation: field-error-in .25s ease;
+    }
+    @keyframes field-error-in {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .cf-submit { display: inline-flex; align-items: center; gap: 10px; }
+    .cf-spinner {
+      display: none;
+      width: 14px; height: 14px;
+      border: 2px solid rgba(250,247,243,.35);
+      border-top-color: var(--cream-soft);
+      border-radius: 50%;
+      animation: cf-spin .7s linear infinite;
+    }
+    .cf-submit[aria-busy="true"] .cf-spinner { display: inline-block; }
+    .cf-submit[aria-busy="true"] { opacity: .75; cursor: not-allowed; pointer-events: none; }
+    @keyframes cf-spin { to { transform: rotate(360deg); } }
+    .cf-status {
+      font-size: 13px;
+      line-height: 1.6;
+      min-height: 0;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: opacity .3s ease, transform .3s ease;
+    }
+    .cf-status.visible { opacity: 1; transform: translateY(0); }
+    .cf-status.success { color: var(--brown); }
+    .cf-status.error { color: var(--error); }
 
     /* ── Map ── */
     .map-frame {
@@ -2225,27 +2295,40 @@
       </div>
 
       <!-- Form -->
-      <form class="reveal reveal-d2" style="display:flex;flex-direction:column;gap:16px;" onsubmit="return false;">
+      <form id="contactForm" class="reveal reveal-d2" style="display:flex;flex-direction:column;gap:16px;" action="https://formsubmit.co/canico.toilettage@gmail.com" method="POST" novalidate>
+        <input type="hidden" name="_subject" value="Nouveau message — Site CaniCo">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://www.canicotoilettage.com/#contact">
+        <input type="text" name="_honey" style="position:absolute;left:-9999px;" tabindex="-1" autocomplete="off">
+
         <div class="form-name-row">
-          <div>
-            <label class="field-label">Prénom & Nom</label>
-            <input type="text" class="form-input" placeholder="Jean Dupont">
+          <div class="field-group">
+            <label class="field-label" for="cf-name">Prénom & Nom</label>
+            <input type="text" id="cf-name" name="Nom" class="form-input" placeholder="Jean Dupont" autocomplete="name" required minlength="2" maxlength="60" pattern="[A-Za-zÀ-ÖØ-öø-ÿ' -]{2,60}">
+            <p class="field-error">Merci d'indiquer votre prénom et nom (lettres uniquement).</p>
           </div>
-          <div>
-            <label class="field-label">Téléphone</label>
-            <input type="tel" class="form-input" placeholder="06 00 00 00 00">
+          <div class="field-group">
+            <label class="field-label" for="cf-phone">Téléphone</label>
+            <input type="tel" id="cf-phone" name="Téléphone" class="form-input" placeholder="06 00 00 00 00" autocomplete="tel" inputmode="tel" required pattern="0[1-9]([ .-]?[0-9]{2}){4}">
+            <p class="field-error">Format attendu : 06 00 00 00 00.</p>
           </div>
         </div>
-        <div>
-          <label class="field-label">Sujet</label>
-          <input type="text" class="form-input" placeholder="Votre question…">
+        <div class="field-group">
+          <label class="field-label" for="cf-subject">Sujet</label>
+          <input type="text" id="cf-subject" name="Sujet" class="form-input" placeholder="Votre question…" maxlength="100">
         </div>
-        <div>
-          <label class="field-label">Message</label>
-          <textarea class="form-input" rows="5" placeholder="Décrivez votre demande…"></textarea>
+        <div class="field-group">
+          <label class="field-label" for="cf-message">Message</label>
+          <textarea id="cf-message" name="Message" class="form-input" rows="5" placeholder="Décrivez votre demande…" required minlength="10" maxlength="1000"></textarea>
+          <p class="field-error">Merci de détailler votre demande (10 caractères minimum).</p>
         </div>
-        <div style="margin-top:6px;">
-          <button type="submit" class="btn-dark">Envoyer le message</button>
+        <div style="margin-top:6px;display:flex;flex-direction:column;gap:14px;">
+          <button type="submit" id="cf-submit" class="btn-dark cf-submit">
+            <span class="cf-spinner"></span>
+            <span class="cf-submit-label">Envoyer le message</span>
+          </button>
+          <p class="cf-status" role="status" aria-live="polite"></p>
         </div>
       </form>
     </div>
@@ -2390,6 +2473,77 @@
     });
     document.querySelectorAll('.t-prev').forEach(btn => {
       btn.addEventListener('click', () => goTo(current - 1));
+    });
+  })();
+
+  // Contact form: validation + AJAX submit
+  (function() {
+    const form = document.getElementById('contactForm');
+    if (!form) return;
+    const AJAX_ENDPOINT = 'https://formsubmit.co/ajax/canico.toilettage@gmail.com';
+    const submitBtn = document.getElementById('cf-submit');
+    const submitLabel = submitBtn.querySelector('.cf-submit-label');
+    const status = form.querySelector('.cf-status');
+    const fields = Array.from(form.querySelectorAll('.form-input[required], .form-input[pattern]'));
+
+    function validateField(field) {
+      const valid = field.checkValidity();
+      field.classList.toggle('invalid', !valid);
+      return valid;
+    }
+
+    fields.forEach(field => {
+      field.addEventListener('blur', () => validateField(field));
+      field.addEventListener('input', () => {
+        if (field.classList.contains('invalid')) validateField(field);
+      });
+    });
+
+    function setStatus(message, type) {
+      status.textContent = message;
+      status.className = 'cf-status visible' + (type ? ' ' + type : '');
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      let firstInvalid = null;
+      let allValid = true;
+      fields.forEach(field => {
+        const valid = validateField(field);
+        if (!valid) {
+          allValid = false;
+          if (!firstInvalid) firstInvalid = field;
+        }
+      });
+
+      if (!allValid) {
+        setStatus('Merci de corriger les champs indiqués ci-dessus.', 'error');
+        firstInvalid.focus();
+        return;
+      }
+
+      submitBtn.setAttribute('aria-busy', 'true');
+      submitLabel.textContent = 'Envoi…';
+      setStatus('', '');
+
+      try {
+        const res = await fetch(AJAX_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(form)
+        });
+        if (!res.ok) throw new Error('Request failed');
+
+        setStatus('Merci ! Votre message a bien été envoyé, nous vous répondrons rapidement.', 'success');
+        form.reset();
+        fields.forEach(f => f.classList.remove('invalid'));
+      } catch (err) {
+        setStatus('Une erreur est survenue. Vous pouvez nous appeler au 06.82.26.03.36 ou réessayer.', 'error');
+      } finally {
+        submitBtn.removeAttribute('aria-busy');
+        submitLabel.textContent = 'Envoyer le message';
+      }
     });
   })();
 
